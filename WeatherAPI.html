@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather API</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h1>Weather API</h1>
+    <div id="temperature"></div>
+    <script>
+      function displayTemperature(response) {
+        let temperatureElement = document.querySelector("#temperature");
+        let temperature = Math.round(response.data.temperature.current);
+        let city = response.data.city;
+        let country = response.data.country;
+        let description = response.data.condition.description;
+        temperatureElement.innerHTML = `The temperature in ${city}, ${country} is ${temperature}° F (${description}).`;
+      }
+      let city = "Burleson";
+      let apiKey = "5b7e32442badt617fc2dae0afo330c92";
+      let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
+      axios.get(apiUrl).then(displayTemperature);
+    </script>
+  </body>
+</html>
